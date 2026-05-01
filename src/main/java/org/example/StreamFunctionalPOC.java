@@ -3,6 +3,7 @@ package org.example;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -20,5 +21,9 @@ public class StreamFunctionalPOC {
         System.out.println("Números gerados: " + numeros);
 
         System.out.println(saudacao.get());
+
+        Consumer<Integer> imprimirDobro = n -> System.out.println("Dobro de " + n + " = " + (n * 2));
+
+        numeros.forEach(imprimirDobro);
     }
 }
