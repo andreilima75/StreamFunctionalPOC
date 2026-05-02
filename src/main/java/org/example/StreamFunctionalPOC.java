@@ -43,5 +43,18 @@ public class StreamFunctionalPOC {
         somaDosQuadrados.ifPresent(resultado ->
                 System.out.println("Soma dos quadrados = " + resultado)
         );
+
+        Consumer<Integer> imprimir = System.out::println;
+        UnaryOperator<Integer> incrementar = x -> x + 1;
+
+        int resultado = Stream.generate(numeroAleatorio)
+                .limit(15)
+                .map(incrementar)
+                .map(quadrado)
+                .filter(n -> n % 2 == 0)
+                .peek(imprimir)
+                .reduce(0, soma);
+
+        System.out.println("Soma total: " + resultado);
     }
 }
