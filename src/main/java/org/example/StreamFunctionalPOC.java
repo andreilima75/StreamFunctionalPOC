@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -56,5 +57,15 @@ public class StreamFunctionalPOC {
                 .reduce(0, soma);
 
         System.out.println("Soma total: " + resultado);
+
+        List<String> nomes = Arrays.asList("ana", "bruno", "carla", "daniel", "elisa");
+        Consumer<String> imprimir2 = System.out::println;
+        UnaryOperator<String> maiuscula = String::toUpperCase;
+        String resultado2 = nomes.stream()
+                .map(maiuscula)
+                .peek(imprimir2)
+                .reduce("", (a, b) -> a + b + " | ", (a, b) -> a + b);
+
+        System.out.println("Resultado: " + resultado2);
     }
 }
