@@ -1,10 +1,7 @@
 package org.example;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -67,5 +64,27 @@ public class StreamFunctionalPOC {
                 .reduce("", (a, b) -> a + b + " | ", (a, b) -> a + b);
 
         System.out.println("Resultado: " + resultado2);
+
+        Supplier<Integer> random = () -> (int) (Math.random() * 50) + 1;
+        UnaryOperator<Integer> aoCubo = x -> x * x * x;
+        Consumer<Integer> mostrar = n -> System.out.printf("%d ", n);
+
+        List<Integer> resultado3 = Stream.generate(random)
+                .limit(8)
+                .map(aoCubo)
+                .peek(mostrar)
+                .reduce(List.of(),
+                        (list, num) -> {
+                            List<Integer> nova = new ArrayList<>(list);
+                            nova.add(num);
+                            return nova;
+                        },
+                        (list1, list2) -> {
+                            List<Integer> nova = new ArrayList<>(list1);
+                            nova.addAll(list2);
+                            return nova;
+                        });
+
+        System.out.println("Resultado final: " + resultado3);
     }
 }
